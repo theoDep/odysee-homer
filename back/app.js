@@ -4,14 +4,14 @@ const express = require("express");
 const morgan = require("morgan");
 const app = express();
 
+const authRouter = require("./routes/auth/auth");
+
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 
-app.get("/", (req, res) => {
-  res.send("Youhou");
-});
+app.use("/auth", authRouter);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
