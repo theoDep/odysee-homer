@@ -9,6 +9,7 @@ export default class SignUp extends Component {
       verifyPassword: "",
       name: "",
       lastname: "",
+      flash: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,7 +24,18 @@ export default class SignUp extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+    fetch("/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(this.state),
+    })
+      .then((res) => res.json())
+      .then(
+        (res) => this.setState({ flash: res.flash }),
+        (err) => this.setState({ flash: err.flash })
+      );
   };
 
   createInput = (name, type, placeholder = "") => {
