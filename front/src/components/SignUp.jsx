@@ -25,14 +25,14 @@ export default class SignUp extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    const { verifyPassword, flash, ...user } = this.state;
+    const { verifyPassword, flash, ...newUser } = this.state;
 
     fetch("/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(newUser),
     })
       .then((res) => res.json())
       .then(
