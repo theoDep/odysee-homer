@@ -1,12 +1,16 @@
 const express = require("express");
+const connection = require("../../helpers/db");
 const router = express.Router();
 
 router.post("/signup", (req, res, next) => {
-  const error = null;
-  if (error) {
-    res.status(400).json({ flash: error.message });
-  }
-  res.status(200).json({ flash: "User has been signed up !" });
+  const user = req.body;
+  connection.query("INSERT INTO users SET ?", user, (err) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(200);
+    }
+  });
 });
 
 module.exports = router;
