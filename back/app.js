@@ -6,6 +6,8 @@ const app = express();
 
 const authRouter = require("./routes/auth/auth");
 
+const port = process.env.PORT || 5001;
+
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -19,6 +21,6 @@ app.use((req, res, next) => {
   next(error);
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`Server is running on port ${process.env.PORT || 3000}`);
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
